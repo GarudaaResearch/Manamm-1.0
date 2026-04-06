@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  ORG_ADMIN
+  FACULTY
+  STUDENT
+}
+
+model Organization {
+  id          String   @id @default(uuid())
+  name        String
+  subDomain   String   @unique
+  logoUrl     String?
+  planId      String   @default("FREE")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  users       User[]
+  projects    Project[]
+}
+
+model User {
+  id             String       @id @default(uuid())
+  email          String       @unique
+  password       String
+  role           Role         @default(STUDENT)
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  projects       Project[]
+  annotations    Annotation[]
+}
+
+model Project {
+  id             String       @id @default(uuid())
+  name           String
+  description    String?
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  createdById    String
+  createdBy      User         @relation(fields: [createdById], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  datasets       Dataset[]
+}
+
+model Dataset {
+  id          String       @id @default(uuid())
+  name        String
+  filePath    String
+  format      String       // CSV, JSON, TXT, WHATSAPP
+  metadata    Json?
+  projectId   String
+  project     Project      @relation(fields: [projectId], references: [id])
+  createdAt   DateTime     @default(now())
+  experiments Experiment[]
+  annotations Annotation[]
+}
+
+model Experiment {
+  id         String   @id @default(uuid())
+  name       String?
+  datasetId  String
+  dataset    Dataset  @relation(fields: [datasetId], references: [id])
+  modelName  String
+  config     Json?
+  results    Json?
+  metrics    Json?
+  createdAt  DateTime @default(now())
+}
+
+model Annotation {
+  id         String   @id @default(uuid())
+  datasetId  String
+  dataset    Dataset  @relation(fields: [datasetId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  labelData  Json
+  createdAt  DateTime @default(now())
+}
