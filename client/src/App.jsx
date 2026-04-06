@@ -9,6 +9,7 @@ import AnnotationTool from './pages/AnnotationTool'
 import AnalyzeText  from './pages/AnalyzeText'
 import AdminPanel   from './pages/AdminPanel'
 import ModelsTutorial from './pages/ModelsTutorial'
+import SpeechTutorial  from './pages/SpeechTutorial'
 
 function ProtectedRoute({ children, roles }) {
   const { user } = useAuth()
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/annotate"  element={<ProtectedRoute><AnnotationTool /></ProtectedRoute>} />
           <Route path="/analyze"   element={<ProtectedRoute><AnalyzeText /></ProtectedRoute>} />
           <Route path="/tutorials" element={<ProtectedRoute><ModelsTutorial /></ProtectedRoute>} />
+          <Route path="/speech"    element={<ProtectedRoute><SpeechTutorial /></ProtectedRoute>} />
           <Route path="/admin"     element={<ProtectedRoute roles={['SUPER_ADMIN','ORG_ADMIN']}><AdminPanel /></ProtectedRoute>} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>
