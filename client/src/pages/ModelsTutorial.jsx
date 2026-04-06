@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import AppLayout from '../components/AppLayout'
-import { BookOpen, Network, Zap, Settings, Shield, Sparkles, Server, MessageSquare, Lightbulb, ChevronRight } from 'lucide-react'
+import { BookOpen, Network, Zap, Settings, Shield, Sparkles, Server, MessageSquare, Lightbulb, ChevronRight, ScanText } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import clsx from 'clsx'
 
