@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import {
   LayoutDashboard, FlaskConical, MessageSquare, Tag,
-  ScanText, Settings, LogOut, Brain, ChevronRight, Shield, BookOpen, Mic
+  ScanText, Settings, LogOut, Brain, ChevronRight, Shield, BookOpen, Mic, Info
 } from 'lucide-react'
 import clsx from 'clsx'
 
@@ -14,6 +14,7 @@ const NAV = [
   { label: 'Annotate Data',  icon: Tag,              path: '/annotate'  },
   { label: 'Models Tutorial',icon: BookOpen,         path: '/tutorials' },
   { label: 'Speech & SER',   icon: Mic,              path: '/speech'    },
+  { label: 'About School',   icon: Info,             path: '/about'     },
 ]
 
 const ADMIN_NAV = [
